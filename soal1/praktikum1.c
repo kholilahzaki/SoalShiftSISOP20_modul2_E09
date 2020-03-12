@@ -15,6 +15,11 @@ int main(int argc,char* argv[]) {
   time_t curtime;
   int detik=61,menit=61,jam=25;
 
+  if(argc < 5 || argc > 5){
+    printf("Argumen yang dimasukkan harus 4\n");
+    return 0;
+  }
+
   if(*argv[1]=='*'){
     detik = -1;
   } else {
@@ -32,7 +37,10 @@ int main(int argc,char* argv[]) {
   } else{
     jam = atoi(argv[3]);
   }
-
+  if(jam > 23 || jam < -1 || menit > 59 || menit < -1 || detik > 59 || detik < -1){
+    printf("Range Error\n");
+    return 0;
+  }
   if(detik==61 || menit==61 || jam==25){
     printf("Arguments passed were wrong\n");
     exit(EXIT_FAILURE);

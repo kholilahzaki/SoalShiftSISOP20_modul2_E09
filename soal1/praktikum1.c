@@ -10,41 +10,50 @@
 #include <ctype.h>
 #include <time.h>
 
+int isNumber(char number[])
+{
+  int i = 0;
+
+    //checking for negative numbers
+  for (; number[i] != '0'; i++)
+  {
+    //if (number[i] > '9' || number[i] < '0')
+    if (!isdigit(number[i]))
+      return 0;
+    }
+    return 1;
+}
+
 int main(int argc,char* argv[]) {
   struct tm* loc_time;
   time_t curtime;
   int detik=61,menit=61,jam=25;
 
-  if(argc < 5 || argc > 5){
-    printf("Argumen yang dimasukkan harus 4\n");
-    return 0;
-  }
-
   if(*argv[1]=='*'){
     detik = -1;
-  } else {
+  } else if (isNumber(argv[1])) {
     detik = atoi(argv[1]);
   }
     
   if(*argv[2]=='*'){
     menit = -1;
-  } else {
+  } else if (isNumber(argv[1])){
     menit = atoi(argv[2]);
   }
     
   if (*argv[3]=='*'){
     jam = -1;
-  } else{
+  } else if (isNumber(argv[1])){
     jam = atoi(argv[3]);
   }
-  if(jam > 23 || jam < -1 || menit > 59 || menit < -1 || detik > 59 || detik < -1){
-    printf("Range Error\n");
-    return 0;
+  if(detik>59 || menit>59 || jam > 23 || jam<-1 || menit<-1 || detik<-1){
+    detik=61;menit=61;jam=25;
   }
   if(detik==61 || menit==61 || jam==25){
     printf("Arguments passed were wrong\n");
-    exit(EXIT_FAILURE);
+    return 0;
   }
+  printf("%d->%d->%d->%s",detik,menit,jam,argv[4]);
 
   pid_t pid, sid;        // Variabel untuk menyimpan PID
 
@@ -83,49 +92,65 @@ int main(int argc,char* argv[]) {
     loc_time = localtime(&curtime);
     
     if(detik==-1 && menit==-1 && jam==-1){        
-      char *args[] = {"bash",argv[4],NULL};
-      execv("/bin/bash",args);
+      if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
     }
     if(detik==-1 && menit==-1 && jam!=-1){
       if(loc_time->tm_hour==jam){
-        char *args[] = {"bash",argv[4],NULL};
-        execv("/bin/bash",args);
+        if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
       }
     }
     if(detik==-1 && menit!=-1 && jam==-1){
       if(loc_time->tm_min==menit){
-        char *args[] = {"bash",argv[4],NULL};
-        execv("/bin/bash",args);
+        if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
       }
     }
     if (detik==-1 && menit!=-1 && jam!=-1){
       if(loc_time->tm_hour==jam && loc_time->tm_min==menit){
-        char *args[] = {"bash",argv[4],NULL};
-        execv("/bin/bash",args);
+        if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
       }
     }
     if (detik!=-1 && menit==-1 && jam==-1){
       if(loc_time->tm_sec==detik){
-        char *args[] = {"bash",argv[4],NULL};
-        execv("/bin/bash",args);
+        if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
       }
     }
     if (detik!=-1 && menit==-1 && jam!=-1){
       if(loc_time->tm_hour==jam && loc_time->tm_sec==detik){
-        char *args[] = {"bash",argv[4],NULL};
-        execv("/bin/bash",args);
+        if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
       }
     }
     if(detik!=-1 && menit!=-1 && jam==-1){
       if(loc_time->tm_min==menit){
-        char *args[] = {"bash",argv[4],NULL};
-        execv("/bin/bash",args);
+        if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
       }
     }
     if (detik!=-1 && menit!=-1 && jam!=-1){
       if(loc_time->tm_min==menit && loc_time->tm_hour==jam && loc_time->tm_sec==detik){
-        char *args[] = {"bash",argv[4],NULL};
-        execv("/bin/bash",args);
+        if(fork()==0){
+                char *args[] = {"bash",argv[4],NULL};
+                execv("/bin/bash",args);
+            } else ;
       }
     }
 

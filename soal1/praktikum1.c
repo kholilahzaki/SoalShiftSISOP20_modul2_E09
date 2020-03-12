@@ -15,7 +15,7 @@ int isNumber(char number[])
   int i = 0;
 
     //checking for negative numbers
-  for (; number[i] != '0'; i++)
+  for (; number[i] != '\0'; i++)
   {
     //if (number[i] > '9' || number[i] < '0')
     if (!isdigit(number[i]))

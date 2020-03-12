@@ -37,13 +37,13 @@ int main(int argc,char* argv[]) {
     
   if(*argv[2]=='*'){
     menit = -1;
-  } else if (isNumber(argv[1])){
+  } else if (isNumber(argv[2])){
     menit = atoi(argv[2]);
   }
     
   if (*argv[3]=='*'){
     jam = -1;
-  } else if (isNumber(argv[1])){
+  } else if (isNumber(argv[3])){
     jam = atoi(argv[3]);
   }
   if(detik>59 || menit>59 || jam > 23 || jam<-1 || menit<-1 || detik<-1){
